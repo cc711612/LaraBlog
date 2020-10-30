@@ -76,6 +76,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        if($post->user_id<>\Auth::id()){
+            return redirect()->to('/');
+        }
         return view('post.edit',compact('post'));
     }
 
@@ -111,6 +114,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+        if($post->user_id<>\Auth::id()){
+            return redirect()->to('/');
+        }
         $post->del=1;
         if($post->save()){
             return redirect()->to('/');
